@@ -1,0 +1,16 @@
+# vi: ft=sh ts=2 sts=2 sw=2 et
+
+# Add a section into .ssh/config
+# Host    dev
+#   Hostname my-cloud-desktop.corp.amazon.com
+#   RequestTTY yes
+#   RemoteCommand ~/.config/tmux/bin/start-tmux
+
+eval "$(fix-ssh-agent)"
+
+# Attach to the last active session or start a new one
+if [ -n "${TMUX_SESSION_NAME}" ]; then
+  tmux new -A -s "${TMUX_SESSION_NAME}"
+else
+  tmux attach 2> /dev/null || tmux new -A -s main
+fi

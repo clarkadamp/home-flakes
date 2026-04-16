@@ -1,0 +1,8 @@
+# vi: ft=sh ts=2 sts=2 sw=2 et
+
+# Never have a dry-run fail due to missing tracking branch
+# Set an upstream branch by walking back through commits to the `origin` commit
+
+if ! git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}' &> /dev/null; then
+  git branch -u "$(git log --graph --format='format:%d' --date-order | grep origin | sed -e 's/.*(//' -e 's/)//' -e 's/, /\n/g' | grep origin | grep -v HEAD)"
+fi

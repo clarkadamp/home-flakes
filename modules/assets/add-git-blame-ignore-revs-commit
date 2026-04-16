@@ -1,0 +1,12 @@
+# vi: ft=sh ts=2 sts=2 sw=2 et
+
+GIT_BLAME_IGNORE_REVS=$(git rev-parse --show-toplevel)/.git-blame-ignore-revs
+COMMIT_HASH=$(git log -n 1 --format='%H')
+COMMIT_SUBJECT=$(git log -n 1 --format='%s')
+cat << EOF >> "${GIT_BLAME_IGNORE_REVS}"
+# ${COMMIT_SUBJECT}
+${COMMIT_HASH}
+
+EOF
+git add "${GIT_BLAME_IGNORE_REVS}"
+git commit -m "Added commit to .git-blame-ignore-revs"

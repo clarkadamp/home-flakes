@@ -1,0 +1,5 @@
+package @JAVA_PACKAGE_NAME@;
+
+public class @CLASS_NAME@ {
+
+}

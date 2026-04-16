@@ -1,0 +1,15 @@
+# vi: ft=sh ts=2 sts=2 sw=2 et
+
+# Each new ssh connection creates a new agent socket, so re-sshing will break persistent
+# tmux sessions, but we can symlink it to a deterministic location.
+
+# usage: eval "$(fix-ssh-agent)"
+
+PERSISTENT_SOCK="/tmp/ssh-${USER}.sock"
+
+if [[ -n "${SSH_TTY}" ]]; then
+  rm -f "${PERSISTENT_SOCK}"
+  ln -s "$(ls -t /tmp/ssh-*/agent* | head -n 1)" "${PERSISTENT_SOCK}"
+fi
+
+echo export SSH_AUTH_SOCK="${PERSISTENT_SOCK}"

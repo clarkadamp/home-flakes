@@ -1,0 +1,8 @@
+# vi: ft=sh ts=2 sts=2 sw=2 et
+
+if [ $# -eq 0 ]; then
+  # Show a fancy picker if no arguments supplied
+  fzf --tmux center,90%,90% --info inline --preview  'bat -n --theme="Solarized (dark)" --color=always {} --style="numbers,changes,header"' --bind 'enter:become(nvim {})'
+else
+  nvim "${@}"
+fi

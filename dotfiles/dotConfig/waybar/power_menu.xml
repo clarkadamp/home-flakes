@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <menuitem id="shutdown">
+      <label>Shutdown</label>
+    </menuitem>
+    <menuitem id="reboot">
+      <label>Reboot</label>
+    </menuitem>
+    <menuitem id="logout">
+      <label>Logout</label>
+    </menuitem>
+    <menuitem id="suspend">
+      <label>Suspend</label>
+    </menuitem>
+    <menuitem id="hibernate">
+      <label>Hibernate</label>
+    </menuitem>
+  </menu>
+</interface>
