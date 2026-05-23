@@ -1,0 +1,12 @@
+{ self, ... }:
+{
+  flake.modules.nixos.@ASPECT_NAME@ = {
+    imports = with self.modules.nixos; [
+    ];
+  };
+
+  flake.modules.darwin.@ASPECT_NAME@ = {
+    imports = with self.modules.darwin; [
+    ];
+  };
+}

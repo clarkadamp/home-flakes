@@ -18,11 +18,39 @@ return {
       return vim.fn.join(file_path, ".")
     end
 
+    local skeld = require("skel-nvim.defaults")
+
+    -- given filename: "my-filename.ext" -> "my-filename"
+    local filename_no_ext = function(filename)
+      return skeld.get_filename(filename):gsub("%.%w+$", "")
+    end
+
+    -- given filename: "my-weird_filename" -> "myWeirdFilename"
+    local function to_camel_case(dashed_or_underscore_seperated)
+      return dashed_or_underscore_seperated:gsub("-(%a)", function(l)
+        return l:upper()
+      end)
+    end
+
+    -- given filename: "my-aspect-name.nix" -> "myAspectName"
+    local function nix_aspect_name(filename)
+      return to_camel_case(filename_no_ext(filename))
+    end
+
     require("skel-nvim").setup({
       mappings = {
         ["*.java"] = { "java-class.skel", "java-interface.skel" },
+        ["*.nix"] = {
+          "nix/multi-context.skel",
+          "nix/inheritance.skel",
+          "nix/conditional.skel",
+        },
       },
       substitutions = {
+        ["ASPECT_NAME"] = nix_aspect_name,
+        ["CLASSNAME"] = skeld.get_classname2,
+        ["FILENAME"] = skeld.get_filename,
+        ["FILENAME_NO_EXT"] = filename_no_ext,
         ["JAVA_PACKAGE_NAME"] = java_package_path,
       },
     })

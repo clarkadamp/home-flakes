@@ -1,0 +1,33 @@
+{ self, ... }:
+let
+  home-manager = {
+    sharedModules = with self.modules.homeManager; [
+    ];
+  };
+in
+{
+  flake.modules.nixos.@ASPECT_NAME@ =
+    { pkgs, ... }:
+    {
+      inherit home-manager;
+      environment.systemPackages = with pkgs; [
+      ];
+    };
+
+  flake.modules.darwin.@ASPECT_NAME@ =
+    { pkgs, ... }:
+    {
+      inherit home-manager;
+      environment.systemPackages = with pkgs; [
+      ];
+    };
+
+  flake.modules.homeManager.@ASPECT_NAME@ =
+    { pkgs, ... }:
+    {
+      home.packages = with pkgs; [
+      ];
+      programs = {
+      };
+    };
+}
