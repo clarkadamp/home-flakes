@@ -5,12 +5,16 @@
       systemCli
       fonts
       hyprland
+      videoPlayer
+      linuxDesktop
     ];
   };
 
   flake.modules.darwin.systemDesktop = {
     imports = with self.modules.darwin; [
       systemCli
+      videoPlayer
+      macNavigation
     ];
   };
 

@@ -1,34 +1,35 @@
 {
-  self,
+  lib,
+  config,
   inputs,
-  withSystem,
   ...
 }:
 {
-  flake.overlays.nixpkgsUnfree = final: _prev: {
-    unfree = import inputs.nixpkgs {
-      system = final.stdenv.hostPlatform.system;
-      config.allowUnfree = true;
+  flake.modules.flake.nixpkgs = {
+    options.nixpkgs = {
+      overlays = lib.mkOption {
+        type = lib.types.listOf lib.types.unspecified;
+        default = [ ];
+      };
+      factory = lib.mkOption {
+        type = lib.types.functionTo lib.types.pkgs;
+        readOnly = true;
+        default =
+          system:
+          import inputs.nixpkgs {
+            inherit system;
+            inherit (config.nixpkgs) overlays;
+          };
+      };
+    };
+
+    config = {
+      perSystem =
+        { system, ... }:
+        {
+          _module.args.pkgs = config.nixpkgs.factory system;
+        };
     };
   };
-  flake.modules.nixos.nixpkgs =
-    { config, lib, ... }:
-    {
-      nixpkgs = lib.mkDefault {
-        pkgs = withSystem config.hardware.facter.report.system (psArgs: psArgs.pkgs);
-        hostPlatform = config.hardware.facter.report.system;
-        overlays = [
-          self.overlays.nixpkgsUnfree
-        ];
-      };
-    };
-  flake.modules.homeManager.nixpkgs =
-    { lib, ... }:
-    {
-      nixpkgs = {
-        overlays = [
-          self.overlays.nixpkgsUnfree
-        ];
-      };
-    };
 }
+# vim: ts=2 sts=2 sw=2 et

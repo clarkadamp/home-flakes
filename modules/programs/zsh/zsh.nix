@@ -58,7 +58,7 @@ in
       programs.ripgrep.enable = true;
       programs.zoxide = {
         enable = true;
-        options = [
+        options = lib.mkForce [
           "--cmd"
           "cd"
         ];

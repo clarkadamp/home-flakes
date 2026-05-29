@@ -5,6 +5,14 @@
       fonts
     ];
   };
+  flake.modules.darwin.fonts = {
+    imports = with self.modules.dawrin; [ homebrew ];
+    homebrew = {
+      casks = [
+        "font-hack-nerd-font"
+      ];
+    };
+  };
   flake.modules.homeManager.fonts =
     { pkgs, ... }:
     {

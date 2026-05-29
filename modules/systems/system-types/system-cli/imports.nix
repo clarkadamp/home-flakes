@@ -4,6 +4,7 @@
     imports = with self.modules.nixos; [
       systemBasic
       git
+      homeManager
       neovim
       networkingUtils
       tmux
@@ -15,6 +16,7 @@
     imports = with self.modules.darwin; [
       systemBasic
       git
+      homeManager
       neovim
       networkingUtils
       tmux
@@ -26,6 +28,7 @@
     imports = with self.modules.homeManager; [
       systemBasic
       git
+      homeManager
       neovim
       networkingUtils
       tmux

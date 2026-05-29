@@ -1,18 +1,11 @@
 { self, ... }:
-let
-  home-manager = {
-    sharedModules = with self.modules.homeManager; [
-      hyprland
-    ];
-  };
-in
 {
   flake.modules.nixos.hyprland = {
-    inherit home-manager;
-  };
-
-  flake.modules.darwin.hyprland = {
-    inherit home-manager;
+    home-manager = {
+      sharedModules = with self.modules.homeManager; [
+        hyprland
+      ];
+    };
   };
 
   flake.modules.homeManager.hyprland =
@@ -86,7 +79,6 @@ in
         # beersmith
         system-config-printer
         networkmanagerapplet
-        vlc
         systemctl-tui
         evtest
         rofi

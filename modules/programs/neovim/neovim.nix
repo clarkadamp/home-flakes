@@ -9,6 +9,12 @@ in
 {
   flake.modules.nixos.neovim = {
     inherit home-manager;
+    imports = with self.modules.dawrin; [ homebrew ];
+    homebrew = {
+      brews = [
+        "sqlite" # For neoclip
+      ];
+    };
   };
 
   flake.modules.darwin.neovim = {
@@ -22,15 +28,19 @@ in
           enable = true;
           defaultEditor = true;
 
+          # look into whether or not these are needed
+          withPython3 = true;
+          withRuby = false;
+
           extraPackages = with pkgs; [
             autoflake
             bat
             basedpyright
-            # bash-language-server
+            bash-language-server
             black
             coreutils
-            # dockerfile-language-server-nodejs
-            # eslint_d
+            dockerfile-language-server
+            eslint_d
             eza
             fd
             fzf
@@ -38,8 +48,8 @@ in
             go
             gron
             isort
-            # jq-lsp
-            # kotlin-language-server
+            jq-lsp
+            kotlin-language-server
             lua5_1
             luajitPackages.jsregexp
             luarocks
@@ -49,19 +59,19 @@ in
             nixd
             nixfmt-tree
             nodejs
-            # perlnavigator
             python3
             python3Packages.debugpy
             python3Packages.flake8
             python3Packages.pip
             ripgrep
-            # ruby
-            # rubyPackages.solargraph
+            ruby
+            rubyPackages.solargraph
+            shellcheck
             stylua
-            # tailwindcss-language-server
-            # taplo
+            tailwindcss-language-server
+            taplo
             tree-sitter
-            # typescript-language-server
+            typescript-language-server
             unzip
             vscode-extensions.vadimcn.vscode-lldb
             vscode-langservers-extracted

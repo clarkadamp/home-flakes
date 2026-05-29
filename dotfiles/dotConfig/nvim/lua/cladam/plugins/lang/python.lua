@@ -1,6 +1,25 @@
 local U = require("cladam.utils")
 
+local function pyright_config()
+  local pyright_json = U.findup("pyrightconfig.json")
+  if pyright_json then
+    vim.notify("pyrightconfig.json found at " .. pyright_json, vim.log.levels.DEBUG)
+    return vim.json.decode(U.read_file(pyright_json))
+  end
+  return nil
+end
+
 local function find_python()
+  local pyright_data = pyright_config()
+  if pyright_data then
+    local python_location = pyright_data["venvPath"] .. "/" .. pyright_data["venv"] .. "/bin/python"
+    if not U.exists(python_location) then
+      vim.notify_once(python_location .. " doesn't exist", vim.log.levels.DEBUG)
+    end
+    vim.notify_once("Using pyright python: " .. python_location, vim.log.levels.DEBUG)
+    return python_location
+  end
+
   local virtual_env = os.getenv("VIRTUAL_ENV")
   if virtual_env then
     vim.notify_once("Using VIRTUAL_ENV python: " .. virtual_env .. "/bin/python", vim.log.levels.DEBUG)

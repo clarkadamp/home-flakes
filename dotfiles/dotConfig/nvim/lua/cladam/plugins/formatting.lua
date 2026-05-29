@@ -17,6 +17,11 @@ return {
   config = function(_, opts)
     local conform = require("conform")
 
+    opts.format_on_save = {
+      timeout_ms = 1500,
+      lsp_fallback = false,
+    }
+
     conform.setup(opts)
     vim.keymap.set({ "n", "v" }, "<leader>fa", function()
       conform.format({

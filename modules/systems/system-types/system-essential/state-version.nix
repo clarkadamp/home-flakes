@@ -18,7 +18,7 @@ in
     { lib, ... }:
     {
       inherit home-manager;
-      system.stateVersion = lib.mkDefault 6;
+      system.stateVersion = lib.mkDefault 7;
     };
 
   flake.modules.homeManager.systemEssential =

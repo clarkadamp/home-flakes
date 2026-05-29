@@ -2,7 +2,6 @@
 {
   flake.modules.nixos.systemBasic = {
     imports = with self.modules.nixos; [
-      nixpkgs
       systemEssential
     ];
   };

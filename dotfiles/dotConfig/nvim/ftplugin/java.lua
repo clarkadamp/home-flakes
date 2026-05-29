@@ -38,6 +38,10 @@ end
 
 local function eclipse_workspace()
   local path = ".eclipse/"
+  local hooks_exist, hooks = pcall(require, "work_hooks")
+  if hooks_exist then
+    path = hooks.eclipse_path()
+  end
   vim.fn.mkdir(path, "p")
   return path
 end

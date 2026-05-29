@@ -46,6 +46,7 @@
 
   config.flake = {
     darwinModules = config.flake.modules.darwin;
+    flakeModules = config.flake.modules.flake;
     homeModules = config.flake.modules.homeManager;
     nixosModules = config.flake.modules.nixos;
   };
