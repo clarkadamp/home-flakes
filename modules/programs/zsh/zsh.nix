@@ -88,16 +88,6 @@ in
               . ${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh;
             fi
           '')
-          (lib.mkOrder 501 ''
-            if [[ -o login  ]] && which uwsm 2>&1 > /dev/null; then
-              if uwsm check may-start; then
-                uwsm start default
-              else
-                echo "Unable to start window manager"
-                uwsm check may-start -v
-              fi
-            fi
-          '')
           (lib.mkOrder 502 (builtins.readFile ./zsh.p10k.cache.sh))
         ];
         shellAliases.ls = "eza";

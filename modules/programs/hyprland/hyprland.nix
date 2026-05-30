@@ -9,7 +9,12 @@
   };
 
   flake.modules.homeManager.hyprland =
-    { pkgs, config, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     {
       home.packages = with pkgs; [
         bluez
@@ -65,7 +70,6 @@
         jq
         sof-firmware
         glib
-        ghostty
         pkgs.unfree.google-chrome
         rose-pine-hyprcursor
         hyprcursor
@@ -136,5 +140,18 @@
           path = ../../../dotfiles/dotConfig/hypr;
           subFilesOnly = true;
         });
+
+      programs.zsh = {
+        initContent = lib.mkOrder 501 ''
+          if [[ -o login  ]] && which uwsm 2>&1 > /dev/null; then
+            if uwsm check may-start; then
+              uwsm start default
+            else
+              echo "Unable to start window manager"
+              uwsm check may-start -v
+            fi
+          fi
+        '';
+      };
     };
 }

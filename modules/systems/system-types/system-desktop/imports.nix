@@ -7,6 +7,7 @@
       hyprland
       videoPlayer
       linuxDesktop
+      terminalEmulator
     ];
   };
 
@@ -15,12 +16,14 @@
       systemCli
       videoPlayer
       macNavigation
+      terminalEmulator
     ];
   };
 
   flake.modules.homeManager.systemDesktop = {
     imports = with self.modules.homeManager; [
       systemCli
+      terminalEmulator
     ];
   };
 }
