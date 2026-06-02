@@ -9,16 +9,16 @@ in
 {
   flake.modules.nixos.neovim = {
     inherit home-manager;
-    imports = with self.modules.dawrin; [ homebrew ];
+  };
+
+  flake.modules.darwin.neovim = {
+    inherit home-manager;
+    imports = with self.modules.darwin; [ homebrew ];
     homebrew = {
       brews = [
         "sqlite" # For neoclip
       ];
     };
-  };
-
-  flake.modules.darwin.neovim = {
-    inherit home-manager;
   };
   flake.modules.homeManager.neovim =
     { config, pkgs, ... }:
