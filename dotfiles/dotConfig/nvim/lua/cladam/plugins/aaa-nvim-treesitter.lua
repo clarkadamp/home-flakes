@@ -6,6 +6,7 @@ return {
     --  asdf global nodejs 17.9.1
     --]]
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
     dependencies = {
@@ -75,10 +76,10 @@ return {
       },
     },
     config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter").setup(opts)
     end,
   },
-  "nvim-treesitter/playground",
+  -- "nvim-treesitter/playground",
 }
 
 -- vim: ts=2 sts=2 sw=2 et

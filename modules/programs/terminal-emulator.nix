@@ -18,6 +18,7 @@ in
     {
       inherit home-manager;
       environment.systemPackages = with pkgs; [
+        # ghostty-bin
       ];
     };
 
