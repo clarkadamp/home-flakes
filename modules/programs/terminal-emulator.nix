@@ -36,7 +36,10 @@ in
         enableZshIntegration = true;
         installVimSyntax = true;
         settings = {
-          "theme" = solarizedDark;
+          theme = solarizedDark;
+          "font-size" = 11;
+          "font-family" = "JetBrainsMono Nerd Font";
+
         };
         themes = {
           "${solarizedDark}" = {

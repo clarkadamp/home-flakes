@@ -16,6 +16,9 @@
       ...
     }:
     {
+      imports = [
+        self.modules.homeManager.hyprlandDefaultConfig
+      ];
       home.packages = with pkgs; [
         bluez
         brightnessctl
@@ -23,48 +26,6 @@
         hyprpolkitagent
         socat
         javaPackages.compiler.openjdk21
-        (pkgs.python3Packages.buildPythonApplication {
-          pname = "hyprland-events";
-          version = "0.0.1";
-          pyproject = false;
-          propagatedBuildInputs = with pkgs; [
-            (python3.withPackages (
-              python-pkgs: with python-pkgs; [
-                (pkgs.python3Packages.buildPythonPackage rec {
-                  pname = "hyprland-py";
-                  version = "master";
-                  src = fetchFromGitHub {
-                    owner = "clarkadamp";
-                    repo = pname;
-                    rev = version;
-                    sha256 = "sha256-pJfUswcSNV5jVdOP9Ehdn+lPQIqjMYBbWAvxlcPOMhk=";
-                  };
-                  pyproject = true;
-                  build-system = [
-                    setuptools
-                    wheel
-                  ];
-                })
-              ]
-            ))
-          ];
-          dependencies = [
-            brightnessctl
-          ];
-          dontUnpack = true;
-          installPhase = ''
-            install -Dm755 "${./hyprland-events.py}" "$out/bin/hyprland-events"
-          '';
-        })
-
-        (writeShellApplication {
-          name = "start-or-focus";
-          runtimeInputs = [
-            jq
-            hyprland
-          ];
-          text = builtins.readFile ./focus-or-start.sh;
-        })
         vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
         wget
         jq
@@ -116,15 +77,10 @@
       wayland.windowManager.hyprland = {
         enable = true;
         # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
-        package = null;
+        # package = null;
+        configType = "lua";
         portalPackage = null;
         xwayland.enable = true; # Xwayland can be disabled.
-        settings = {
-          source = [
-            "${config.xdg.configHome}/hypr/hyprland-main.conf"
-            "${config.xdg.configHome}/hypr/monitors.conf"
-          ];
-        };
       };
       xdg.configFile =
         (self.factory.symlinkDotfiles {
