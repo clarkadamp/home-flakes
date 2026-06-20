@@ -1,7 +1,9 @@
+{ inputs, ... }:
 {
   flake.modules.nixos.systemBasic =
     { pkgs, ... }:
     {
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       environment.systemPackages = with pkgs; [
         (writeShellApplication {
           name = "nx-switch";
@@ -19,6 +21,7 @@
   flake.modules.homeManager.systemBasic =
     { pkgs, ... }:
     {
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
       home.packages = with pkgs; [
         git
         jq

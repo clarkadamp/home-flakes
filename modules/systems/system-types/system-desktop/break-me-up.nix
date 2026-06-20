@@ -2,7 +2,7 @@
   flake.modules.nixos.linuxDesktop =
     { pkgs, ... }:
     {
-
+      services.power-profiles-daemon.enable = true;
       # https://nixos.wiki/wiki/Chromium
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
 

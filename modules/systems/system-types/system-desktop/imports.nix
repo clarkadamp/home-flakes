@@ -3,6 +3,7 @@
   flake.modules.nixos.systemDesktop = {
     imports = with self.modules.nixos; [
       systemCli
+      chrome
       fonts
       hyprland
       videoPlayer
@@ -23,6 +24,7 @@
   flake.modules.homeManager.systemDesktop = {
     imports = with self.modules.homeManager; [
       systemCli
+      chrome
       terminalEmulator
     ];
   };

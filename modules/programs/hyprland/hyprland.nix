@@ -16,8 +16,8 @@
       ...
     }:
     {
-      imports = [
-        self.modules.homeManager.hyprlandDefaultConfig
+      imports = with self.modules.homeManager; [
+        noctaliaShell
       ];
       home.packages = with pkgs; [
         bluez
@@ -31,7 +31,6 @@
         jq
         sof-firmware
         glib
-        pkgs.unfree.google-chrome
         rose-pine-hyprcursor
         hyprcursor
         hyprpicker
@@ -66,9 +65,6 @@
         };
       };
       programs = {
-        waybar = {
-          enable = true;
-        };
         wofi = {
           enable = true;
         };

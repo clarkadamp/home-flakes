@@ -13,17 +13,27 @@ return {
       servers = {
         nixd = {
           nixpkgs = {
-            expr = '(builtins.getFlake ("git+file://" + toString ./.)).inputs.nixpkgs { }',
+            expr = 'import (builtins.getFlake ("git+file://" + toString ./.)).inputs.nixpkgs { }',
           },
           formatting = {
             command = { "nixfmt" },
           },
           options = {
             nixos = {
-              expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.gw.options',
+              expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.'
+                .. vim.fn.hostname()
+                .. ".options",
             },
             home_manager = {
-              expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.gw.options.home-manager.users.type.getSubOptions []",
+              expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations.'
+                .. os.getenv("USER")
+                .. ".options",
+            },
+            flake_parts = {
+              expr = '(builtins.getFlake "/path/to/your/flake").debug.options',
+            },
+            flake_parts2 = {
+              expr = '(builtins.getFlake "/path/to/your/flake").currentSystem.options',
             },
           },
         },

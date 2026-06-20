@@ -7,20 +7,13 @@ let
   };
 in
 {
-  flake.modules.nixos.terminalEmulator =
-    { pkgs, ... }:
-    {
-      inherit home-manager;
-    };
+  flake.modules.nixos.terminalEmulator = {
+    inherit home-manager;
+  };
 
-  flake.modules.darwin.terminalEmulator =
-    { pkgs, ... }:
-    {
-      inherit home-manager;
-      environment.systemPackages = with pkgs; [
-        # ghostty-bin
-      ];
-    };
+  flake.modules.darwin.terminalEmulator = {
+    inherit home-manager;
+  };
 
   flake.modules.homeManager.terminalEmulator =
     { pkgs, ... }:
@@ -28,8 +21,6 @@ in
       solarizedDark = "Builtin Solarized Dark";
     in
     {
-      home.packages = with pkgs; [
-      ];
       programs.ghostty = {
         enable = true;
         package = with pkgs; if pkgs.stdenv.isDarwin then ghostty-bin else ghostty;
@@ -70,5 +61,28 @@ in
           };
         };
       };
+      wayland.windowManager.hyprland =
+        let
+          inherit (self.factory.hyprland)
+            bind'
+            launchOrFocus
+            mainMod
+            on
+            ;
+        in
+        {
+          settings = {
+            bind = [
+              (bind' "${mainMod} + Q" "exec_cmd" "ghostty")
+              (launchOrFocus "${mainMod} + 2" "ghostty" "com.mitchellh.ghostty" 2)
+            ];
+            on = [
+              (on "hyprland.start" [
+                "ghostty"
+                { workspace = "2 silent"; }
+              ])
+            ];
+          };
+        };
     };
 }
