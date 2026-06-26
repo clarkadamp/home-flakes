@@ -1,24 +1,26 @@
 { self, ... }:
 {
-  flake.modules.nixos.videoPlayer =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        vlc
+  flake.modules.nixos.videoPlayer = {
+    home-manager.sharedModules = with self.modules.homeManager; [
+      videoPlayer
+    ];
+  };
+
+  flake.modules.darwin.videoPlayer = {
+    imports = with self.modules.darwin; [ homebrew ];
+    homebrew = {
+      casks = [
+        "vlc"
       ];
     };
+  };
 
-  flake.modules.darwin.videoPlayer =
+  flake.modules.homeManager.videoPlayer =
     { pkgs, ... }:
     {
-      environment.systemPackages = with pkgs; [
+      home.packages = with pkgs; [
+        vlc
       ];
-      imports = with self.modules.darwin; [ homebrew ];
-      homebrew = {
-        casks = [
-          "vlc"
-        ];
-      };
     };
 
 }

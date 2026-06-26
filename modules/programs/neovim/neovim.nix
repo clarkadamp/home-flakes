@@ -23,6 +23,9 @@ in
   flake.modules.homeManager.neovim =
     { config, pkgs, ... }:
     {
+      home.sessionVariables = {
+        "JDTLS_JAVA_HOME" = "${pkgs.javaPackages.compiler.openjdk21}";
+      };
       programs = {
         neovim = {
           enable = true;

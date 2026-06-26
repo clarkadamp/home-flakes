@@ -72,12 +72,55 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782608780,
+        "narHash": "sha256-ikJ1lXuk3CzjA+uE/fmdltVRcllqWNUKUkrJSLefbh8=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia",
+        "rev": "59f71f7f1b80424dbc2a95bc61185b7ad1bf5577",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "ref": "main",
+        "repo": "noctalia",
+        "type": "github"
+      }
+    },
+    "noctalia-greeter": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1782517487,
+        "narHash": "sha256-EAo6mV0/HCBR4R2+VcgRwthtvJn0/aTGBDlrB0JFKNs=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "rev": "76e0349b32bfa7736888764c60d769f5d5920da4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-greeter",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia",
+        "noctalia-greeter": "noctalia-greeter",
         "tmux-sessionx": "tmux-sessionx"
       }
     },

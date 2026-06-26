@@ -1,6 +1,9 @@
 { self, lib, ... }:
 {
-  flake.modules.homeManager.hyprland = {
+  flake.modules.homeManager.hyprland = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      brightnessctl
+    ];
     wayland.windowManager.hyprland =
       let
         inherit (self.factory.hyprland)
@@ -33,15 +36,15 @@
             '')
           ];
           bind = lib.lists.flatten [
-            (bind' "${mainMod} + Q" "exec_cmd" "ghostty")
-            (bind' "${mainMod} + W" "exec_cmd" "google-chrome-stable")
-            (bind' "CTRL + ALT + Q" "exec_cmd" "hyprlock")
+            (bind' "CTRL + ALT + Q" "exec_cmd" (lib.getExe pkgs.hyprlock))
             (bind "${mainMod} + C" "window.close")
-            (bind' "${mainMod} + M" "exec_cmd"
-              "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
+            (bind' "${mainMod} + SHIFT + escape" "exec_cmd"
+              "${lib.getExe pkgs.hyprshutdown} || hyprctl dispatch 'hl.dsp.exit()'"
             )
             (bind' "${mainMod} + E" "exec_cmd" "dolphin")
+            # Can't decide if I like F or M for fullscreen
             (bind "${mainMod} + F" "window.fullscreen")
+            (bind "${mainMod} + M" "window.fullscreen")
             (bind' "${mainMod} + V" "window.float" { action = "toggle"; })
             (bind "${mainMod} + P" "window.pseudo")
             (bind "${mainMod} + G" "group.toggle")
@@ -88,28 +91,6 @@
               locked = true;
               repeating = true;
             })
-            (bind'' "XF86MonBrightnessUp" "exec_cmd" "brightnessctl -e4 -n2 set 5%+" {
-              locked = true;
-              repeating = true;
-            })
-            (bind'' "XF86MonBrightnessDown" "exec_cmd" "brightnessctl -e4 -n2 set 5%-" {
-              locked = true;
-              repeating = true;
-            })
-            (bind'' "SHIFT + XF86MonBrightnessUp" "exec_cmd"
-              "brightnessctl --device='tpacpi::kbd_backlight' set 1+"
-              {
-                locked = true;
-                repeating = true;
-              }
-            )
-            (bind'' "SHIFT + XF86MonBrightnessDown" "exec_cmd"
-              "brightnessctl --device='tpacpi::kbd_backlight' set 1-"
-              {
-                locked = true;
-                repeating = true;
-              }
-            )
 
             # Requires playerctl
             (bind'' "XF86AudioNext" "exec_cmd" "playerctl next" { locked = true; })

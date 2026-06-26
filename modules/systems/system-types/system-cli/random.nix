@@ -18,6 +18,7 @@
         nixfmt-tree
         htop
         fortune
+        systemctl-tui
       ];
     };
 }

@@ -95,25 +95,35 @@
         file:close()
       '');
     launchOrFocus =
-      keys: executable: class: workspace:
+      keys: executable: class: args:
+      let
+        searchArgs = {
+          class = "${class}";
+        };
+        extraSearchArgs =
+          if lib.isAttrs args then
+            if lib.hasAttr "workspace" then { workspace = args.workspace; } else { }
+          else
+            { workspace = args; };
+        execArgs = if lib.isAttrs args then args else { workspace = args; };
+      in
       (mkBind {
         inherit keys;
         dispatcher = (
           lib.generators.mkLuaInline ''
             function()
-              for _, window in ipairs(hl.get_windows({ class = "${class}", workspace = ${toString workspace} })) do
+              for _, window in ipairs(hl.get_windows(${toLua (searchArgs // extraSearchArgs)})) do
                 hl.dispatch(hl.dsp.focus({ window = window }))
                 return
               end
-              for _, window in ipairs(hl.get_windows({ class = "${class}" })) do
+              for _, window in ipairs(hl.get_windows(${toLua searchArgs})) do
                 hl.dispatch(hl.dsp.focus({ window = window }))
                 return
               end
-              hl.dispatch(hl.dsp.exec_cmd("${executable}", { workspace = ${toString workspace} }))
+              hl.dispatch(hl.dsp.exec_cmd("${executable}", ${toLua execArgs}))
             end
           ''
         );
       });
-
   };
 }

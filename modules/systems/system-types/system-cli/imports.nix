@@ -7,6 +7,7 @@
       homeManager
       neovim
       networkingUtils
+      ssh
       tmux
       zsh
     ];
@@ -19,6 +20,7 @@
       homeManager
       neovim
       networkingUtils
+      ssh
       tmux
       zsh
     ];
@@ -31,6 +33,7 @@
       homeManager
       neovim
       networkingUtils
+      ssh
       tmux
       zsh
     ];

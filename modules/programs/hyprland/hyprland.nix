@@ -1,10 +1,28 @@
 { self, ... }:
 {
-  flake.modules.nixos.hyprland = {
+  flake.modules.nixos.hyprland = { pkgs, ... }: {
+    imports = [
+      self.inputs.noctalia-greeter.nixosModules.default
+    ];
     home-manager = {
       sharedModules = with self.modules.homeManager; [
         hyprland
       ];
+    };
+    programs.hyprlock.enable = true;
+    programs.hyprland = {
+      enable = true;
+      withUWSM = true;
+      xwayland.enable = true;
+    };
+    programs.noctalia-greeter = {
+      enable = true;
+      package = self.inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+      settings.cursor = {
+        theme = "BreezeX-RosePine-Linux";
+        size = 24;
+        package = pkgs.rose-pine-cursor;
+      };
     };
   };
 
@@ -16,43 +34,19 @@
       ...
     }:
     {
-      imports = with self.modules.homeManager; [
-        noctaliaShell
-      ];
       home.packages = with pkgs; [
-        bluez
-        brightnessctl
         dunst
         hyprpolkitagent
         socat
-        javaPackages.compiler.openjdk21
-        vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
         wget
         jq
-        sof-firmware
         glib
         rose-pine-hyprcursor
         hyprcursor
-        hyprpicker
-        telegram-desktop
-        signal-desktop
-        pkgs.unfree.spotify
-        whatsapp-electron
-        pkgs.unfree.discord
         pkgs.unfree.plexamp
-        # beersmith
-        system-config-printer
-        networkmanagerapplet
-        systemctl-tui
         evtest
-        rofi
         nix-diff
-        wtype
-        wev
       ];
-      home.sessionVariables = {
-        "JDTLS_JAVA_HOME" = "${pkgs.javaPackages.compiler.openjdk21}";
-      };
       services = {
         dunst.enable = true;
         gnome-keyring = {
@@ -64,11 +58,7 @@
           ];
         };
       };
-      programs = {
-        wofi = {
-          enable = true;
-        };
-      };
+      programs.hyprlock.enable = true;
       services.hypridle.enable = true;
       wayland.windowManager.hyprland = {
         enable = true;
@@ -82,10 +72,6 @@
         (self.factory.symlinkDotfiles {
           hmConfig = config;
           path = ../../../dotfiles/dotConfig/rofi;
-        })
-        // (self.factory.symlinkDotfiles {
-          hmConfig = config;
-          path = ../../../dotfiles/dotConfig/waybar;
         })
         // (self.factory.symlinkDotfiles {
           hmConfig = config;

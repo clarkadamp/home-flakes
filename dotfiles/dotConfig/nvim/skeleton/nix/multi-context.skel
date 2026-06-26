@@ -2,6 +2,7 @@
 let
   home-manager = {
     sharedModules = with self.modules.homeManager; [
+      @ASPECT_NAME@
     ];
   };
 in

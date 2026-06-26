@@ -9,6 +9,8 @@
   flake.modules.homeManager.chrome =
     { pkgs, ... }:
     {
+      # https://nixos.wiki/wiki/Chromium
+      home.sessionVariables.NIXOS_OZONE_WL = "1";
       home.packages = [
         pkgs.unfree.google-chrome
       ];
