@@ -110,6 +110,11 @@ return {
         -- vim.notify_once("inlays not supported: " .. client.name)
         -- end
       end)
+
+      local has_hooks, hooks = pcall(require, "work_hooks")
+      if has_hooks then
+        U.on_attach(hooks.add_workspace_roots)
+      end
     end,
   },
 }
