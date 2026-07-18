@@ -8,6 +8,7 @@
     home-manager.sharedModules = with self.modules.homeManager; [
       noctaliaShell
     ];
+    services.upower.enable = true;
     nix.settings = {
       extra-substituters = [ "https://noctalia.cachix.org" ];
       extra-trusted-public-keys = [
