@@ -5,11 +5,13 @@
 
 # usage: eval "$(fix-ssh-agent)"
 
-PERSISTENT_SOCK="/tmp/ssh-${USER}.sock"
+# Get newest agent file
+RUNNING_AGENT="$(ls -t /tmp/ssh-*/agent* | head -n 1)"
 
-if [[ -n "${SSH_TTY}" ]]; then
-  rm -f "${PERSISTENT_SOCK}"
-  ln -s "$(ls -t /tmp/ssh-*/agent* | head -n 1)" "${PERSISTENT_SOCK}"
+if [[ ! -z "${RUNNING_AGENT}" ]]; then
+  BASE_DIR="$(dirname "$(dirname "${RUNNING_AGENT}")")"
+  PERSISTENT_SOCK="/${BASE_DIR}/ssh-${USER}.sock"
+  ln -fs "${RUNNING_AGENT}" "${PERSISTENT_SOCK}"
+  echo export SSH_AUTH_SOCK="${PERSISTENT_SOCK}"
 fi
 
-echo export SSH_AUTH_SOCK="${PERSISTENT_SOCK}"

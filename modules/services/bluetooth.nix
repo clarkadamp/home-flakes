@@ -1,6 +1,6 @@
 { self, ... }:
 {
-  flake.modules.darwin.macApps = {
+  flake.modules.darwin.bluetooth = {
     imports = with self.modules.darwin; [ homebrew ];
     homebrew = {
       casks = [

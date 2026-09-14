@@ -11,8 +11,11 @@ in
     inherit home-manager;
   };
 
-  flake.modules.darwin.terminalEmulator = {
+  flake.modules.darwin.terminalEmulator = { pkgs, ... }: {
     inherit home-manager;
+    environment.systemPackages = with pkgs; [
+      ghostty-bin
+    ];
   };
 
   flake.modules.homeManager.terminalEmulator =
@@ -29,7 +32,7 @@ in
         settings = {
           theme = solarizedDark;
           "font-size" = 11;
-          "font-family" = "JetBrainsMono Nerd Font";
+          "font-family" = "Fira Code";
 
         };
         themes = {

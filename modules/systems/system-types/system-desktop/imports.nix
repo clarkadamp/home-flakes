@@ -22,6 +22,7 @@
   flake.modules.darwin.systemDesktop = {
     imports = with self.modules.darwin; [
       bluetooth
+      fonts
       systemCli
       videoPlayer
       macNavigation

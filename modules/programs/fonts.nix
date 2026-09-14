@@ -6,7 +6,10 @@
     ];
   };
   flake.modules.darwin.fonts = {
-    imports = with self.modules.dawrin; [ homebrew ];
+    imports = with self.modules.darwin; [ homebrew ];
+    home-manager.sharedModules = with self.modules.homeManager; [
+      fonts
+    ];
     homebrew = {
       casks = [
         "font-hack-nerd-font"
@@ -18,9 +21,9 @@
     {
       fonts.fontconfig.enable = true;
       home.packages = with pkgs; [
-        roboto-mono
-        font-awesome
-        nerd-fonts.arimo
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.fira-code
+        nerd-fonts.fira-mono
       ];
     };
 }
