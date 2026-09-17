@@ -33,6 +33,7 @@ in
           theme = solarizedDark;
           "font-size" = 11;
           "font-family" = "Fira Code";
+          auto-update = "off";
 
         };
         themes = {
