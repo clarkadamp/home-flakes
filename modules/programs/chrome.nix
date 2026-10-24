@@ -28,7 +28,7 @@
           settings = {
             bind = [
               (launchOrFocus "${mainMod} + 1" "google-chrome-stable" "google-chrome" 1)
-              (bind' "${mainMod} + W" "exec_cmd" "google-chrome-stable")
+              (bind' "${mainMod} + SHIFT + W" "exec_cmd" "google-chrome-stable")
             ];
             on = lib.lists.flatten [
               (on "hyprland.start" [

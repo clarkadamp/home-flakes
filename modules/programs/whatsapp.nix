@@ -25,7 +25,7 @@ in
         ;
       pkg = pkgs.whatsapp-electron;
       exe = lib.getExe pkg;
-      class = "whatsapp-electron";
+      class = "com.github.dagmoller.whatsapp-electron";
       name = "whatsapp";
       workspace = "name:${name}";
     in
@@ -34,7 +34,7 @@ in
       home.packages = [ pkg ];
       wayland.windowManager.hyprland.settings = {
         bind = [
-          (launchOrFocus "${mainMod} + SHIFT + W" exe class workspace)
+          (launchOrFocus "${mainMod} + W" exe class workspace)
         ];
         on = [
           (on "hyprland.start" [

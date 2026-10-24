@@ -3,7 +3,7 @@
     { pkgs, ... }:
     {
       services.dbus.packages = with pkgs; [
-        gcr
+        # gcr
       ];
 
       security.pam.services.login.enableGnomeKeyring = true;

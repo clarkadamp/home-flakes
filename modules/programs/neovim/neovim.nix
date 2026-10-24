@@ -36,7 +36,7 @@ in
           withRuby = false;
 
           extraPackages = with pkgs; [
-            autoflake
+            # autoflake
             bat
             basedpyright
             bash-language-server

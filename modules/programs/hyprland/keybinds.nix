@@ -46,7 +46,7 @@
             (bind "${mainMod} + F" "window.fullscreen")
             (bind "${mainMod} + M" "window.fullscreen")
             (bind' "${mainMod} + V" "window.float" { action = "toggle"; })
-            (bind "${mainMod} + P" "window.pseudo")
+            # (bind "${mainMod} + P" "window.pseudo")
             (bind "${mainMod} + G" "group.toggle")
             (bind' "${mainMod} + J" "layout" "togglesplit") # dwindle only
 
@@ -73,6 +73,9 @@
             # Move/resize windows with mainMod + LMB/RMB and dragging
             (bind'' "${mainMod} + mouse:272" "window.drag" null { mouse = true; })
             (bind'' "${mainMod} + mouse:273" "window.resize" null { mouse = true; })
+
+            (bind' "${mainMod} + CTRL + left" "workspace.move" { monitor = "-1"; })
+            (bind' "${mainMod} + CTRL + right" "workspace.move" { monitor = "1"; })
 
             # Laptop multimedia keys for volume and LCD brightness
             (bind'' "XF86AudioRaiseVolume" "exec_cmd" "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+" {

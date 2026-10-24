@@ -208,6 +208,8 @@
             ];
             bind = [
               (bind' "${mainMod} + Return" "exec_cmd" "${noctaliaExe} msg panel-toggle launcher")
+              (bind' "CTRL + SHIFT + 3" "exec_cmd" "${noctaliaExe} msg screenshot-fullscreen pick")
+              (bind' "CTRL + SHIFT + 4" "exec_cmd" "${noctaliaExe} msg screenshot-region")
             ];
             layer_rule = [
               {
