@@ -52,7 +52,9 @@ in
     {
 
       home.username = username;
-      home.homeDirectory = lib.mkDefault (if pkgs.stdenv.isDarwin then darwinHome else linuxHome);
+      home.homeDirectory = lib.mkDefault (
+        if pkgs.stdenv.hostPlatform.isDarwin then darwinHome else linuxHome
+      );
       programs = {
         git.settings.user = {
           inherit email;

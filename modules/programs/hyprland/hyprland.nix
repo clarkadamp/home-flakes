@@ -15,7 +15,7 @@
       withUWSM = true;
       xwayland.enable = true;
     };
-    programs.noctalia-greeter = {
+    services.displayManager.noctalia-greeter = {
       enable = true;
       package = self.inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings.cursor = {

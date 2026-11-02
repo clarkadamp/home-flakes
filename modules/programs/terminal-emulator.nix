@@ -26,7 +26,7 @@ in
     {
       programs.ghostty = {
         enable = true;
-        package = with pkgs; if pkgs.stdenv.isDarwin then ghostty-bin else ghostty;
+        package = with pkgs; if pkgs.stdenv.hostPlatform.isDarwin then ghostty-bin else ghostty;
         enableZshIntegration = true;
         installVimSyntax = true;
         settings = {

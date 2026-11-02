@@ -33,7 +33,7 @@ in
       };
     in
     {
-      home.file = lib.mkIf pkgs.stdenv.isLinux {
+      home.file = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
         ".config/tmux/bin/start-tmux" = {
           # Provide a deterministic location to start-tmux
           text = ''
@@ -59,7 +59,7 @@ in
           text = builtins.readFile ./tmux-popup.sh;
         })
       ]
-      ++ lib.optional pkgs.stdenv.isLinux (
+      ++ lib.optional pkgs.stdenv.hostPlatform.isLinux (
         pkgs.writeShellApplication {
           name = "start-tmux";
           runtimeInputs = with pkgs; [
@@ -73,7 +73,7 @@ in
           text = builtins.readFile ./start-tmux;
         }
       )
-      ++ lib.optional pkgs.stdenv.isLinux fix-ssh-agent;
+      ++ lib.optional pkgs.stdenv.hostPlatform.isLinux fix-ssh-agent;
 
       home.sessionVariables.LANG = "en_US.UTF-8";
 
