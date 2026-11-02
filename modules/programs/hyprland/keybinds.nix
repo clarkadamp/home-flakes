@@ -63,8 +63,8 @@
             (bind' "${mainMod} + SHIFT + up" "window.move" { direction = "up"; })
             (bind' "${mainMod} + SHIFT + down" "window.move" { direction = "down"; })
             # Example special workspace (scratchpad)
-            (bind' "${mainMod} + S" "workspace.toggle_special" "magic")
-            (bind' "${mainMod} + SHIFT + S" "window.move" { workspace = "special:magic"; })
+            # (bind' "${mainMod} + S" "workspace.toggle_special" "magic")
+            # (bind' "${mainMod} + SHIFT + S" "window.move" { workspace = "special:magic"; })
 
             # Scroll through existing workspaces with mainMod + scroll
             (bind' "${mainMod} + mouse_down" "focus" { workspace = "e+1"; })

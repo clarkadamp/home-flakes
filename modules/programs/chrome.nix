@@ -33,7 +33,7 @@
             on = lib.lists.flatten [
               (on "hyprland.start" [
                 "google-chrome-stable"
-                { workspace = "1 silent"; }
+                { workspace = "1"; }
               ])
               (dimKeyBoardOnClass "google-chrome")
             ];
